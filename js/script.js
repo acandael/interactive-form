@@ -9,25 +9,30 @@ $( document ).ready(function() {
     }
   });
 
+  $('#color').hide();
+
   // show color options that match the design
   $('#design').on('change', function(e){
     if (e.target.value === 'js puns') {
       $('#color option').each(function(index, value) {
         if (this.value === 'cornflowerblue' | this.value === 'darkslategrey' | this.value ==='gold') {
-          $(this).show();
-        }
-        else {
-          $(this).hide();
+          $('#color').append(this);
+        } else {
+          $(this).remove();
         }
       });
     } else {
       $('#color option').each(function(index, value){
         if (this.value === 'tomato' | this.value === 'steelblue' | this.value === 'dimgrey') {
-          $(this).show();
+          $('#color').append(this);
         } else {
-          $(this).hide();
+          $(this).remove();
         }
       });
+      
     }
+
+    $('#color').show();
   });
+  
 });
