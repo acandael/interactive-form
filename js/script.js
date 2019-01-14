@@ -9,32 +9,32 @@ $( document ).ready(function() {
     }
   });
 
-  
+  $('#color').hide();
   // show color options that match the design
-  $('#design').on('change', function(e){
-    $('#color').hide();
+  $('#design').change(function(e){
+    
     if (e.target.value === 'js puns') {
-      
       $('#color option').each(function() {
         if (this.value === 'cornflowerblue' | this.value === 'darkslategrey' | this.value ==='gold') {
           $(this).show();
         } else {
           $(this).hide();
         }
-        
+        $('#color').val('cornflowerblue');
       });
-    } else {
+    } else if (e.target.value === 'heart js') {
       
-      $('#color option').each(function(){
+      $('#color option').each(function() {
         if (this.value === 'tomato' | this.value === 'steelblue' | this.value === 'dimgrey') {
           $(this).show();
         } else {
           $(this).hide();
         }
-        
+        $('#color').val('tomato');
       });
     }
-    
+   
     $('#color').show();
+    
   });
 });
