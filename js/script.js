@@ -38,4 +38,46 @@ $( document ).ready(function() {
     }
     
   });
+
+  $('.activities :checkbox').on("change", function(){
+    let labelText = '';
+    let otherLabel = '';
+    let otherText = '';
+    if (this.checked) {
+      // the event was checked
+      const checked = $(this).prop("labels");
+      // get the text from the label and parse it for the date part
+      labelText = $(checked).text().split('—')[1];
+      // loop through other labels
+      $('.activities :checkbox').each(function(key, value){
+        otherLabel = $(value).prop("labels");
+        otherText = $(otherLabel).text().split('—')[1];
+        // disable events with the same date
+        if (!this.checked) {
+          if (labelText === otherText) {
+            $(value).attr("disabled", true);
+            $(value).parent().addClass('strikethrough');
+          }
+        }
+      });
+      
+    } else {
+      // the event was unchecked
+      const unchecked = $(this).prop("labels");
+      labelText = $(unchecked).text().split('—')[1];
+      // enable checkboxes that where disabled
+      $('.activities :checkbox').each(function(key, value){
+        otherLabel = $(value).prop("labels");
+        otherText = $(otherLabel).text().split('—')[1];
+        // enable events with the same date
+        if (labelText === otherText) {
+          $(value).attr("disabled", false);
+          $(value).parent().removeClass('strikethrough');
+        }
+        
+      });
+    }
+  });
+  
 });
+

@@ -113,6 +113,10 @@ button:hover {
 	background: #184c62;
 }
 
+.strikethrough {
+	text-decoration: line-through;
+}
+
 /* ================================= 
   Page Styles
 ==================================== */
