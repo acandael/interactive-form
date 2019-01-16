@@ -40,19 +40,23 @@ $( document ).ready(function() {
   });
 
   $('.activities :checkbox').on("change", function(){
+    // set up variables for the labels
     let labelText = '';
     let otherLabel = '';
     let otherText = '';
+
+    // the event was checked
     if (this.checked) {
-      // the event was checked
       const checked = $(this).prop("labels");
       // get the text from the label and parse it for the date part
       labelText = $(checked).text().split('—')[1];
-      // loop through other labels
+      
+      // disable events with the same date
       $('.activities :checkbox').each(function(key, value){
+        
         otherLabel = $(value).prop("labels");
         otherText = $(otherLabel).text().split('—')[1];
-        // disable events with the same date
+        
         if (!this.checked) {
           if (labelText === otherText) {
             $(value).attr("disabled", true);
@@ -60,16 +64,18 @@ $( document ).ready(function() {
           }
         }
       });
-      
+
+    // the event was unchecked
     } else {
-      // the event was unchecked
       const unchecked = $(this).prop("labels");
       labelText = $(unchecked).text().split('—')[1];
-      // enable checkboxes that where disabled
+
+      // enable events with the same date as the unchecked event
       $('.activities :checkbox').each(function(key, value){
+
         otherLabel = $(value).prop("labels");
         otherText = $(otherLabel).text().split('—')[1];
-        // enable events with the same date
+        
         if (labelText === otherText) {
           $(value).attr("disabled", false);
           $(value).parent().removeClass('strikethrough');
