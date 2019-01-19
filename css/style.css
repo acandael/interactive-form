@@ -117,6 +117,14 @@ button:hover {
 	text-decoration: line-through;
 }
 
+.error {
+	color: red;
+}
+
+.error-field {
+	border: 1px solid red;
+}
+
 /* ================================= 
   Page Styles
 ==================================== */
