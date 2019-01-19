@@ -133,17 +133,20 @@ $( document ).ready(function() {
 
     // The name field can't be blank
     if (!$('#name').val()) {
-      $('#name').after("<p class='error'>The name field can not be blank!</p>");
-      $('#name').addClass('error-field');
+        // only add an error message when no previous error message exists
+        if ($('#name').next('.error').length === 0) {
+          $('#name').after("<p class='error'>The name field can not be blank!</p>");
+        $('#name').addClass('error-field');
+        }
     }
 
     // At least one activity must be checked
-    if (isActivityChecked()) {
+    const checked = $("input[type='checkbox']:checked");
+    if (checked.length < 1) {
       $('.activities').after("<p class='error'>At least one activity must be checked</p>");
     } else {
-      $('.activities p.error').remove();
+      $('.activities').next().remove();
     }
-
     
   });
 
@@ -159,19 +162,6 @@ $( document ).ready(function() {
 
   function isValidEmail(email) {
     return /^[^@]+@[^@.]+\.[a-z]+$/i.test(email);
-  }
-
-  function isActivityChecked() {
-    $('.activities :checkbox').each(function(key, value) {
-      let isChecked = false;
-      
-      if (value.checked) {
-        isChecked = true;
-        console.log('activity was checked');
-      }
-
-      return isChecked;
-    });
   }
 
 });
