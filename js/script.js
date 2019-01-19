@@ -143,9 +143,32 @@ $( document ).ready(function() {
     // At least one activity must be checked
     const checked = $("input[type='checkbox']:checked");
     if (checked.length < 1) {
-      $('.activities').after("<p class='error'>At least one activity must be checked</p>");
+      $('#noActivity').show();
     } else {
-      $('.activities').next().remove();
+      $('#noActivity').hide();
+    }
+
+    
+    // If the credit-card payment option is chosen
+    // make sure the user has supplied a Credit Card number, a Zip Code, and a 3 number CVV
+    if ($('#payment').val() === 'credit card') {
+      const creditCardNumber = $('#cc-num').val();
+      const zipCode = $('#zip').val();
+      let isValidNumber = isValidCreditCardNumber(creditCardNumber);
+
+      if (!isValidNumber) {
+          $('#noValidNumber').show();
+      } else {
+        $('#noValidNumber').hide();
+      }
+
+      let validZipCode = isValidZipCode(zipCode);
+
+      if (!validZipCode) {
+        $('#noValidZipCode').show();
+      } else {
+        $('#noValidZipCode').hide();
+      }
     }
     
   });
@@ -163,6 +186,16 @@ $( document ).ready(function() {
   function isValidEmail(email) {
     return /^[^@]+@[^@.]+\.[a-z]+$/i.test(email);
   }
+
+  function isValidCreditCardNumber(creditCardNumber) {
+    return /^[1-9][0-9]{13,16}$/.test(creditCardNumber);
+  }
+
+  function isValidZipCode(zipcode) {
+    return /^[1-9]{5}$/.test(zipcode);
+  }
+
+  
 
 });
 
