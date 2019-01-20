@@ -154,6 +154,8 @@ $( document ).ready(function() {
     if ($('#payment').val() === 'credit card') {
       const creditCardNumber = $('#cc-num').val();
       const zipCode = $('#zip').val();
+      const CVV = $('#cvv').val();
+
       let isValidNumber = isValidCreditCardNumber(creditCardNumber);
 
       if (!isValidNumber) {
@@ -168,6 +170,14 @@ $( document ).ready(function() {
         $('#noValidZipCode').show();
       } else {
         $('#noValidZipCode').hide();
+      }
+
+      let validCVV = isValidCVV(CVV);
+
+      if (!validCVV) {
+        $('#noValidCVV').show();
+      } else {
+        $('#noValidCVV').hide();
       }
     }
     
@@ -192,7 +202,11 @@ $( document ).ready(function() {
   }
 
   function isValidZipCode(zipcode) {
-    return /^[1-9]{5}$/.test(zipcode);
+    return /^[0-9]{5}$/.test(zipcode);
+  }
+
+  function isValidCVV(cvv) {
+    return /^[0-9]{3}$/.test(cvv);
   }
 
   
