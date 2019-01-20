@@ -3,6 +3,7 @@ $( document ).ready(function() {
   $('#name').focus();
 
   // show text field when 'Other' is selected from Job Role
+  $('#other-text').hide();
   $('#title').change(function(e) {
     if (e.target.value === 'other') {
       $('#other-text').show();
