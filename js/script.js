@@ -138,6 +138,10 @@ $( document ).ready(function() {
         $('#paypal').hide();
         $('#bitcoin').hide();
         break;
+      case 'select_method':
+      $('#bitcoin').hide();
+      $('#paypal').hide();
+      $('#credit-card').hide();
     }
   });
 
