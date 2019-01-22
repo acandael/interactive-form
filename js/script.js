@@ -147,15 +147,16 @@ $( document ).ready(function() {
 
   // Validate the form when submit button is clicked
   $('form').on('submit', function(e){
-    e.preventDefault();
 
     // The user should select a payment option
     if ($('#payment').val() === 'select_method') {
+      e.preventDefault();
       $('#noPaymentInfo').show();
     }
 
     // The name field can't be blank
     if (!$('#name').val()) {
+        e.preventDefault();
         // only add an error message when no previous error message exists
         if ($('#name').next('.error').length === 0) {
           $('#name').after("<p class='error'>The name field can not be blank!</p>");
@@ -166,6 +167,7 @@ $( document ).ready(function() {
     // At least one activity must be checked
     const checked = $("input[type='checkbox']:checked");
     if (checked.length < 1) {
+      e.preventDefault();
       $('#noActivity').show();
     } else {
       $('#noActivity').hide();
@@ -182,6 +184,7 @@ $( document ).ready(function() {
       let isValidNumber = isValidCreditCardNumber(creditCardNumber);
 
       if (!isValidNumber) {
+          e.preventDefault();
           $('#noValidNumber').show();
       } else {
         $('#noValidNumber').hide();
@@ -190,6 +193,7 @@ $( document ).ready(function() {
       let validZipCode = isValidZipCode(zipCode);
 
       if (!validZipCode) {
+        e.preventDefault();
         $('#noValidZipCode').show();
       } else {
         $('#noValidZipCode').hide();
@@ -198,23 +202,37 @@ $( document ).ready(function() {
       let validCVV = isValidCVV(CVV);
 
       if (!validCVV) {
+        e.preventDefault();
         $('#noValidCVV').show();
       } else {
         $('#noValidCVV').hide();
       }
     }
+
+    const mail = $('#mail').val();
+  
+    if (mail === '') {
+      $('#noValidFormat').hide();
+      $('#noMail').show();
+      $('#mail').addClass('error-field');
+    } else {
+      $('#noMail').hide();
+      let isValidFormat = isValidEmail(mail);
+
+    if (!isValidFormat) {
+      $('#noValidFormat').show();
+      $('#mail').addClass('error-field');
+    } else {
+      $('#noValidFormat').hide();
+      $('#mail').removeClass('error-field');
+    }
+    }
+
+    
     
   });
 
-  $('#mail').change(function(e){
-    const mail = $('#mail').val();
-    if (!isValidEmail(mail)) {
-      $('#mail').after("<p class='error'>The format of the email is not valid</p>");
-      $('#mail').addClass('error-field');
-    } else {
-      $('#mail').next('p').remove();
-    }
-  })
+  
 
   function isValidEmail(email) {
     return /^[^@]+@[^@.]+\.[a-z]+$/i.test(email);
