@@ -10,7 +10,7 @@ $( document ).ready(function() {
     }
   });
 
-  
+  $('#color').hide();
   // show color options that match the design
   $('#design').change(function(e){
     
@@ -37,7 +37,7 @@ $( document ).ready(function() {
         $('#color').val('tomato');
       });
     }
-    
+    $('#color').show();
   });
 
   // Register For Activities
