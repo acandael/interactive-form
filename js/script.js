@@ -43,6 +43,9 @@ $( document ).ready(function() {
   // Register For Activities
   //  If the user selects a workshop, don't allow selection of a workshop at the same day and       time
 
+  let totalCost = 0;
+  let price = 0;
+  
   $('.activities :checkbox').on("change", function(){
     // set up variables for the labels
     let labelText = '';
@@ -56,6 +59,10 @@ $( document ).ready(function() {
       const checked = $(this).prop("labels");
       // get the text from the label and parse it for the date part
       labelText = $(checked).text().split('—')[1];
+
+      // Get price for checked checkbox
+      price = parseInt($(checked).text().split('$')[1]);
+      totalCost += price;
       
       // disable events with the same date
       $('.activities :checkbox').each(function(key, value){
@@ -75,7 +82,9 @@ $( document ).ready(function() {
     } else {
       const unchecked = $(this).prop("labels");
       labelText = $(unchecked).text().split('—')[1];
-
+      // get price from unchecked checkbox and distract from total cost
+      price = $(unchecked).text().split('$')[1];
+      totalCost -= price;
       // enable events with the same date as the unchecked event
       $('.activities :checkbox').each(function(key, value){
 
@@ -89,7 +98,16 @@ $( document ).ready(function() {
         
       });
     }
+    
+    // Add totalCost to paragraph
+    $('#totalCost').text('$' + totalCost);
+  
+    
   });
+
+
+
+  
 
   // Payment Info
   // Display payment sections based on the payment option chosen in the select menu.
