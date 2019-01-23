@@ -109,10 +109,6 @@ $( document ).ready(function() {
     
   });
 
-
-
-  
-
   // Payment Info
   // Display payment sections based on the payment option chosen in the select menu.
 
@@ -172,11 +168,14 @@ $( document ).ready(function() {
     const checked = $("input[type='checkbox']:checked");
     if (checked.length < 1) {
       e.preventDefault();
-      $('#noActivity').show();
+      // check if error message is set
+      if (!$('#noActivity').length > 0){
+        $('.activities').after('<p class="error" id="noActivity">At least one activity must be selected</p>');
+      }
+      
     } else {
-      $('#noActivity').hide();
+      $('#noActivity').remove();
     }
-
     
     // If the credit-card payment option is chosen
     // make sure the user has supplied a Credit Card number, a Zip Code, and a 3 number CVV
@@ -189,27 +188,36 @@ $( document ).ready(function() {
 
       if (!isValidNumber) {
           e.preventDefault();
-          $('#noValidNumber').show();
+          // check if error message is already set
+          if (!$('#noValidNumber').length > 0) {
+            $('#cc-num').after("<p class='error' id='noValidNumber'>Enter a valid credit card number</p>");
+          }
       } else {
-        $('#noValidNumber').hide();
+        $('#noValidNumber').remove();
       }
 
       let validZipCode = isValidZipCode(zipCode);
 
       if (!validZipCode) {
         e.preventDefault();
-        $('#noValidZipCode').show();
+        //check if error message is already set
+        if (!$('#noValidZip').length > 0) {
+          $('#zip').after("<p class='error' id='noValidZip'>Enter a valid ZIP code</p>")
+        }
       } else {
-        $('#noValidZipCode').hide();
+        $('#noValidZip').remove();
       }
 
       let validCVV = isValidCVV(CVV);
 
       if (!validCVV) {
         e.preventDefault();
-        $('#noValidCVV').show();
+        // check if error message is already set
+        if (!$('#noValidCVV').length > 0) {
+          $('#cvv').after("<p class='error' id='noValidCVV'>Enter a valid CVV</p>");
+        }
       } else {
-        $('#noValidCVV').hide();
+        $('#noValidCVV').remove();
       }
     }
 

@@ -84,7 +84,7 @@
         <label><input type="checkbox" name="node"> Node.js Workshop — Tuesday 1pm-4pm, $100</label>          
         <label><input type="checkbox" name="build-tools"> Build tools Workshop — Wednesday 9am-12pm, $100</label>
         <label><input type="checkbox" name="npm"> npm Workshop — Wednesday 1pm-4pm, $100</label>
-        <p class="error" id="noActivity" hidden>At least one activity must be checked</p>      <p>Total cost: <span id="totalCost"></span></p> 	
+        <p>Total cost: <span id="totalCost"></span></p> 	
       </fieldset>
       <fieldset>
         <legend>Payment Info</legend>
@@ -104,19 +104,17 @@
           <div class="col-6 col">
             <label for="cc-num">Card Number:</label>
             <input id="cc-num" name="user_cc-num" type="text">
-            <p class="error" id="noValidNumber" hidden>Enter a valid Credit Card Number</p>
+            
           </div>
 
           <div class="col-3 col">
             <label for="zip">Zip Code:</label>
             <input id="zip" name="user_zip" type="text"> 
-            <p class="error" id="noValidZipCode" hidden>Enter a valid Zip Code</p>
           </div>
 
           <div class="col-3 col">
             <label for="cvv">CVV:</label>
             <input id="cvv" name="user_cvv" type="text"> 
-            <p class="error" id="noValidCVV" hidden>Enter a valid CVV</p>
           </div>
 
           <label for="exp-month">Expiration Date:</label>
