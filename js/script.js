@@ -24,6 +24,7 @@ $( document ).ready(function() {
         }
         // set selected option
         $('#color').val('cornflowerblue');
+        $('#color').show();
       });
     } else if (e.target.value === 'heart js') {
       // set the color options for the 'heart js' design
@@ -35,9 +36,12 @@ $( document ).ready(function() {
         }
         // set selected option
         $('#color').val('tomato');
+        $('#color').show();
       });
+    } else if (e.target.value === 'Select Theme') {
+      $('#color').hide();
     }
-    $('#color').show();
+    
   });
 
   // Register For Activities
