@@ -13,10 +13,13 @@ $(document).ready(function () {
   });
 
   $('#color').hide();
+  $('#colors-js-puns').children().hide();
   // show color options that match the design
   $('#design').change(function (e) {
 
     if (e.target.value === 'js puns') {
+      // show color label
+      $('#colors-js-puns').children().show();
       // set the color options for the 'js puns' design
       $('#color option').each(function () {
         if (this.value === 'cornflowerblue' | this.value === 'darkslategrey' | this.value === 'gold') {
@@ -29,6 +32,8 @@ $(document).ready(function () {
         $('#color').show();
       });
     } else if (e.target.value === 'heart js') {
+      // show color label
+      $('#colors-js-puns').children().show();
       // set the color options for the 'heart js' design
       $('#color option').each(function () {
         if (this.value === 'tomato' | this.value === 'steelblue' | this.value === 'dimgrey') {
@@ -42,6 +47,7 @@ $(document).ready(function () {
       });
     } else if (e.target.value === 'Select Theme') {
       $('#color').hide();
+      $('#colors-js-puns').children().hide();
     }
 
   });
