@@ -1,10 +1,10 @@
-$( document ).ready(function() {
+$(document).ready(function () {
   // set focus to the first text field
   $('#name').focus();
 
   // show text field when 'Other' is selected from Job Role
   $('#other-text').hide();
-  $('#title').change(function(e) {
+  $('#title').change(function (e) {
     if (e.target.value === 'other') {
       $('#other-text').show();
     }
@@ -12,12 +12,12 @@ $( document ).ready(function() {
 
   $('#color').hide();
   // show color options that match the design
-  $('#design').change(function(e){
-    
+  $('#design').change(function (e) {
+
     if (e.target.value === 'js puns') {
       // set the color options for the 'js puns' design
-      $('#color option').each(function() {
-        if (this.value === 'cornflowerblue' | this.value === 'darkslategrey' | this.value ==='gold') {
+      $('#color option').each(function () {
+        if (this.value === 'cornflowerblue' | this.value === 'darkslategrey' | this.value === 'gold') {
           $(this).show();
         } else {
           $(this).hide();
@@ -28,7 +28,7 @@ $( document ).ready(function() {
       });
     } else if (e.target.value === 'heart js') {
       // set the color options for the 'heart js' design
-      $('#color option').each(function() {
+      $('#color option').each(function () {
         if (this.value === 'tomato' | this.value === 'steelblue' | this.value === 'dimgrey') {
           $(this).show();
         } else {
@@ -41,7 +41,7 @@ $( document ).ready(function() {
     } else if (e.target.value === 'Select Theme') {
       $('#color').hide();
     }
-    
+
   });
 
   // Register For Activities
@@ -49,8 +49,8 @@ $( document ).ready(function() {
 
   let totalCost = 0;
   let price = 0;
-  
-  $('.activities :checkbox').on("change", function(){
+
+  $('.activities :checkbox').on("change", function () {
     // set up variables for the labels
     let labelText = '';
     let otherLabel = '';
@@ -67,13 +67,13 @@ $( document ).ready(function() {
       // Get price for checked checkbox
       price = parseInt($(checked).text().split('$')[1]);
       totalCost += price;
-      
+
       // disable events with the same date
-      $('.activities :checkbox').each(function(key, value){
+      $('.activities :checkbox').each(function (key, value) {
 
         otherLabel = $(value).prop("labels");
         otherText = $(otherLabel).text().split('—')[1];
-        
+
         if (!this.checked) {
           if (labelText === otherText) {
             $(value).attr("disabled", true);
@@ -82,7 +82,7 @@ $( document ).ready(function() {
         }
       });
 
-    // the event was unchecked
+      // the event was unchecked
     } else {
       const unchecked = $(this).prop("labels");
       labelText = $(unchecked).text().split('—')[1];
@@ -90,23 +90,23 @@ $( document ).ready(function() {
       price = $(unchecked).text().split('$')[1];
       totalCost -= price;
       // enable events with the same date as the unchecked event
-      $('.activities :checkbox').each(function(key, value){
+      $('.activities :checkbox').each(function (key, value) {
 
         otherLabel = $(value).prop("labels");
         otherText = $(otherLabel).text().split('—')[1];
-        
+
         if (labelText === otherText) {
           $(value).attr("disabled", false);
           $(value).parent().removeClass('strikethrough');
         }
-        
+
       });
     }
-    
+
     // Add totalCost to paragraph
     $('#totalCost').text('$' + totalCost);
-  
-    
+
+
   });
 
   // Payment Info
@@ -120,7 +120,7 @@ $( document ).ready(function() {
   $('#noPaymentInfo').hide();
 
   // show the payment information based on the selected payment option
-  $('#payment').on('change', function(e){
+  $('#payment').on('change', function (e) {
     const option = e.target.value;
     switch (option) {
       case 'paypal':
@@ -139,14 +139,14 @@ $( document ).ready(function() {
         $('#bitcoin').hide();
         break;
       case 'select_method':
-      $('#bitcoin').hide();
-      $('#paypal').hide();
-      $('#credit-card').hide();
+        $('#bitcoin').hide();
+        $('#paypal').hide();
+        $('#credit-card').hide();
     }
   });
 
   // Validate the form when submit button is clicked
-  $('form').on('submit', function(e){
+  $('form').on('submit', function (e) {
 
     // The user should select a payment option
     if ($('#payment').val() === 'select_method') {
@@ -156,12 +156,12 @@ $( document ).ready(function() {
 
     // The name field can't be blank
     if (!$('#name').val()) {
-        e.preventDefault();
-        // only add an error message when no previous error message exists
-        if ($('#name').next('.error').length === 0) {
-          $('#name').after("<p class='error'>The name field can not be blank!</p>");
+      e.preventDefault();
+      // only add an error message when no previous error message exists
+      if ($('#name').next('.error').length === 0) {
+        $('#name').after("<p class='error'>The name field can not be blank!</p>");
         $('#name').addClass('error-field');
-        }
+      }
     }
 
     // At least one activity must be checked
@@ -169,14 +169,14 @@ $( document ).ready(function() {
     if (checked.length < 1) {
       e.preventDefault();
       // check if error message is set
-      if (!$('#noActivity').length > 0){
+      if (!$('#noActivity').length > 0) {
         $('.activities').after('<p class="error" id="noActivity">At least one activity must be selected</p>');
       }
-      
+
     } else {
       $('#noActivity').remove();
     }
-    
+
     // If the credit-card payment option is chosen
     // make sure the user has supplied a Credit Card number, a Zip Code, and a 3 number CVV
     if ($('#payment').val() === 'credit card') {
@@ -187,11 +187,11 @@ $( document ).ready(function() {
       let isValidNumber = isValidCreditCardNumber(creditCardNumber);
 
       if (!isValidNumber) {
-          e.preventDefault();
-          // check if error message is already set
-          if (!$('#noValidNumber').length > 0) {
-            $('#cc-num').after("<p class='error' id='noValidNumber'>Enter a valid credit card number</p>");
-          }
+        e.preventDefault();
+        // check if error message is already set
+        if (!$('#noValidNumber').length > 0) {
+          $('#cc-num').after("<p class='error' id='noValidNumber'>Enter a valid credit card number</p>");
+        }
       } else {
         $('#noValidNumber').remove();
       }
@@ -222,7 +222,7 @@ $( document ).ready(function() {
     }
 
     const mail = $('#mail').val();
-  
+
     if (mail === '') {
       $('#noValidFormat').hide();
       $('#noMail').show();
@@ -231,27 +231,27 @@ $( document ).ready(function() {
       $('#noMail').hide();
       let isValidFormat = isValidEmail(mail);
 
-    if (!isValidFormat) {
-      $('#noValidFormat').show();
-      $('#mail').addClass('error-field');
-    } else {
-      $('#noValidFormat').hide();
-      $('#mail').removeClass('error-field');
-    }
+      if (!isValidFormat) {
+        $('#noValidFormat').show();
+        $('#mail').addClass('error-field');
+      } else {
+        $('#noValidFormat').hide();
+        $('#mail').removeClass('error-field');
+      }
     }
 
-    
-    
+
+
   });
 
-  
+
 
   function isValidEmail(email) {
     return /^[^@]+@[^@.]+\.[a-z]+$/i.test(email);
   }
 
   function isValidCreditCardNumber(creditCardNumber) {
-    return /^[1-9][0-9]{13,16}$/.test(creditCardNumber);
+    return /^[1-9][0-9]{12,15}$/.test(creditCardNumber);
   }
 
   function isValidZipCode(zipcode) {
@@ -262,7 +262,7 @@ $( document ).ready(function() {
     return /^[0-9]{3}$/.test(cvv);
   }
 
-  
+
 
 });
 
