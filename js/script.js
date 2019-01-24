@@ -232,12 +232,16 @@ $(document).ready(function () {
     const mail = $('#mail').val();
     // check if email is blank
     if (mail === '') {
+      // remove no valid email message
+      $('#noValidFormat').remove();
       // check if no email message is already set
       if (!$('#noEmail').length > 0) {
         $('#mail').after('<p class="error" id="noEmail">Email is a required field</p>');
         $('#mail').addClass('error-field');
       }
     } else {
+      // remove empty mail message
+      $('#noEmail').remove();
       // email is not blank
       $('#noEmail').remove();
       let isValidFormat = isValidEmail(mail);
