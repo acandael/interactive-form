@@ -224,20 +224,26 @@ $(document).ready(function () {
     }
 
     const mail = $('#mail').val();
-
+    // check if email is blank
     if (mail === '') {
-      $('#noValidFormat').hide();
-      $('#noMail').show();
-      $('#mail').addClass('error-field');
-    } else {
-      $('#noMail').hide();
-      let isValidFormat = isValidEmail(mail);
-
-      if (!isValidFormat) {
-        $('#noValidFormat').show();
+      // check if no email message is already set
+      if (!$('#noEmail').length > 0) {
+        $('#mail').after('<p class="error" id="noEmail">Email is a required field</p>');
         $('#mail').addClass('error-field');
+      }
+    } else {
+      // email is not blank
+      $('#noEmail').remove();
+      let isValidFormat = isValidEmail(mail);
+      // check if email format is valid
+      if (!isValidFormat) {
+        // check if no valid format message is already set
+        if (!$('#noValidFormat').length > 0) {
+          $('#mail').after('<p class="error" id="noValidFormat">The email is not valid</p>');
+          $('#mail').addClass('error-field');
+        }
       } else {
-        $('#noValidFormat').hide();
+        $('#noValidFormat').remove();
         $('#mail').removeClass('error-field');
       }
     }
