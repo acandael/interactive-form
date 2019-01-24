@@ -7,6 +7,8 @@ $(document).ready(function () {
   $('#title').change(function (e) {
     if (e.target.value === 'other') {
       $('#other-text').show();
+    } else {
+      $('#other-text').hide();
     }
   });
 
