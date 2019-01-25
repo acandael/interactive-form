@@ -129,6 +129,7 @@ $(document).ready(function () {
 
   // show the payment information based on the selected payment option
   $('#payment').on('change', function (e) {
+    e.preventDefault();
     const option = e.target.value;
     switch (option) {
       case 'paypal':
@@ -159,7 +160,12 @@ $(document).ready(function () {
     // The user should select a payment option
     if ($('#payment').val() === 'select_method') {
       e.preventDefault();
-      $('#noPaymentInfo').show();
+      // check if error message is already set
+      if (!$('#noPaymentInfo').length > 0) {
+        $('#payment').before('<p class="error" id="noPaymentInfo">Select a payment option</p>');
+      }
+    } else {
+      $('#noPaymentInfo').remove();
     }
 
     // The name field can't be blank
@@ -236,26 +242,27 @@ $(document).ready(function () {
       $('#noValidFormat').remove();
       // check if no email message is already set
       if (!$('#noEmail').length > 0) {
+        e.preventDefault();
         $('#mail').after('<p class="error" id="noEmail">Email is a required field</p>');
         $('#mail').addClass('error-field');
       }
     } else {
-      // remove empty mail message
-      $('#noEmail').remove();
       // email is not blank
       $('#noEmail').remove();
-      let isValidFormat = isValidEmail(mail);
-      // check if email format is valid
-      if (!isValidFormat) {
-        // check if no valid format message is already set
-        if (!$('#noValidFormat').length > 0) {
-          $('#mail').after('<p class="error" id="noValidFormat">The email is not valid</p>');
-          $('#mail').addClass('error-field');
-        }
-      } else {
-        $('#noValidFormat').remove();
-        $('#mail').removeClass('error-field');
+    }
+
+    // check if email format is valid
+    let isValidFormat = isValidEmail(mail);
+    if (!isValidFormat) {
+      e.preventDefault();
+      // check if no valid format message is already set
+      if (!$('#noValidFormat').length > 0) {
+        $('#mail').after('<p class="error" id="noValidFormat">The email is not valid</p>');
+        $('#mail').addClass('error-field');
       }
+    } else {
+      $('#noValidFormat').remove();
+      $('#mail').removeClass('error-field');
     }
 
 
